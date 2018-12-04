@@ -1,0 +1,13 @@
+<div class="main-content mat-elevation-z4">
+  <mat-tab-group>
+    <mat-tab label="Population Table">
+      <app-population-table [population]="populationData"></app-population-table>
+    </mat-tab>
+    <mat-tab label="Population Chart">
+      <app-population-chart [population]="populationData"></app-population-chart>
+    </mat-tab>
+    <mat-tab label="Life Expectancy Calculator">
+      <app-life-expectancy></app-life-expectancy>
+    </mat-tab>
+  </mat-tab-group>
+</div>

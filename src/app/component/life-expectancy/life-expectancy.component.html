@@ -1,0 +1,64 @@
+<div class="life-expectancy-panel">
+  <mat-radio-group [(ngModel)]="gender">
+    <mat-radio-button class="radio-button" *ngFor="let gender of genders" [value]="gender">
+      {{gender | titlecase}}
+    </mat-radio-button>
+  </mat-radio-group>
+  
+  <mat-form-field>
+    <mat-select placeholder="Country" [(ngModel)]="country">
+      <mat-option *ngFor="let country of countries" [value]="country">
+        {{country}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Date" [(ngModel)]="date" [errorStateMatcher]="isRequiredError(date)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <input type="number" matInput placeholder="Age (in full years at the given date)" [(ngModel)]="age" [errorStateMatcher]="isRequiredError(age)">
+  </mat-form-field>
+  
+  <button mat-raised-button color="primary" (click)="calculateLifeExpectancy()" [disabled]="disabledButton()">Calculate life expectancy</button>
+  
+  <div *ngIf="lifeExpectancyDate || lifeExpectancyNow" class="life-expectancy">
+    <div>Life expectancy from {{lastDate | date:'shortDate'}}: ~ {{lifeExpectancyDate.years}} years {{lifeExpectancyDate.months}} months {{lifeExpectancyDate.days}} days</div>
+    <div>Life expectancy from today: ~ {{lifeExpectancyNow.years}} years {{lifeExpectancyNow.months}} months {{lifeExpectancyNow.days}} days</div>
+  </div>
+  
+  <div *ngIf="hasLifeExpectancyHistory()">
+    <table mat-table [dataSource]="getLifeExpectancyHistory()" class="history-table">
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let element" class="label-capitalize"> {{element.gender}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> Country </th>
+        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date:'shortDate'}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef> Age </th>
+        <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="expectancy">
+        <th mat-header-cell *matHeaderCellDef> Expectancy </th>
+        <td mat-cell *matCellDef="let element"> {{element.expectancy | number}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

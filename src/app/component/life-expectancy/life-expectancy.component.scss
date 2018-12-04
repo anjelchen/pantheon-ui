@@ -1,0 +1,29 @@
+.life-expectancy-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-radio-group {
+  padding-bottom: 1.25em;
+
+  .radio-button {
+    margin: 5px;
+  }
+}
+
+.mat-form-field, .mat-radio-group {
+  font-size: 14px;
+}
+
+.history-table {
+  width: 100%;
+
+  th, td {
+    width: 25%;
+  }
+}
+
+.life-expectancy {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
